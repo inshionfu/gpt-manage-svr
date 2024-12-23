@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kojikoji.gpt.manage.infrastructure.dao.IPromptDao">
+
+    <resultMap id="PromptMap" type="com.kojikoji.gpt.manage.infrastructure.po.PromptPO">
+        <id column="id" property="id"/>
+        <result column="prompt_id" property="promptId"/>
+        <result column="name" property="name"/>
+        <result column="rate" property="rate"/>
+        <result column="status" property="status"/>
+        <result column="content" property="content"/>
+        <result column="mmu_id" property="mmuId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <select id="queryPromptsByMMUId" resultMap="PromptMap" parameterType="java.lang.Long">
+        select id, prompt_id, name, rate, status, content, mmu_id, create_time, update_time
+        from prompt
+        where mmu_id = #{mmuId}
+    </select>
+
+    <select id="queryExcludePrompts" resultType="java.lang.Long">
+        select prompt_id
+        from prompt
+        where status = 0
+    </select>
+
+</mapper>

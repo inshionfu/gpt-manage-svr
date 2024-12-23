@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kojikoji.gpt.manage.infrastructure.dao.IMMUDao">
+
+    <resultMap id="MMUMap" type="com.kojikoji.gpt.manage.infrastructure.po.MMUPO">
+        <id column="id" property="id"/>
+        <result column="mmu_id" property="mmuId"/>
+        <result column="mmu_name" property="mmuName"/>
+        <result column="total_flow" property="totalFlow"/>
+        <result column="status" property="status"/>
+        <result column="description" property="desc"/>
+        <result column="icon" property="icon"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="strategy" property="drawStrategy"/>
+    </resultMap>
+
+    <select id="queryMMUList" resultMap="MMUMap">
+        select id, mmu_id, mmu_name, total_flow, status, strategy, description, icon, create_time, update_time
+        from mmu
+        where status != 0
+        order by sort
+    </select>
+
+    <select id="queryMMUById" resultMap="MMUMap" parameterType="java.lang.Long">
+        select id, mmu_id, mmu_name, total_flow, status, strategy, description, icon, create_time, update_time
+        from mmu
+        where mmu_id = #{mmuId}
+    </select>
+
+</mapper>
